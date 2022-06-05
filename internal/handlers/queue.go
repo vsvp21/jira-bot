@@ -46,8 +46,8 @@ func (h *TelegramTaskHandler) Handle(message *internal.Message) error {
 	chatIDConverted := int64(chatID)
 	jiraAuth, err := h.jira.Authenticate()
 	if err != nil {
-		if _, err = h.bot.Send(bot.NewErrorMessage(chatIDConverted)); err != nil {
-			return err
+		if _, sendErr := h.bot.Send(bot.NewErrorMessage(chatIDConverted)); err != nil {
+			return sendErr
 		}
 
 		return err
@@ -64,8 +64,8 @@ func (h *TelegramTaskHandler) Handle(message *internal.Message) error {
 		Description: payload.Description,
 	}})
 	if err != nil {
-		if _, err = h.bot.Send(bot.NewErrorMessage(chatIDConverted)); err != nil {
-			return err
+		if _, sendErr := h.bot.Send(bot.NewErrorMessage(chatIDConverted)); err != nil {
+			return sendErr
 		}
 
 		return err
