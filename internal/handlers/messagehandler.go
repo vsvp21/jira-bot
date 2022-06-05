@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/gobuffalo/envy"
 	"jira-bot/internal"
 	"jira-bot/internal/dialog"
 	"log"
@@ -16,13 +17,13 @@ const (
 )
 
 var projects = map[string]string{
-	"express": "11705",
-	"cube":    "11705",
+	"express": envy.Get("EXPRESS_ID", ""),
+	"cube":    envy.Get("CUBE_ID", ""),
 }
 
 var issueTypes = map[string]string{
-	"task": "10002",
-	"bug":  "10004",
+	"task": envy.Get("TASK_ID", ""),
+	"bug":  envy.Get("BUG_ID", ""),
 }
 
 func NewMessageHandler(bot *tgbotapi.BotAPI, chatBot *internal.ChatBot) *MessageHandler {
